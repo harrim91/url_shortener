@@ -1,5 +1,8 @@
 # URL Shortener Tech Test
 
+[![Build Status](https://travis-ci.org/harrim91/url_shortener.svg?branch=master)](https://travis-ci.org/harrim91/url_shortener)
+[![Coverage Status](https://coveralls.io/repos/github/harrim91/url_shortener/badge.svg?branch=master)](https://coveralls.io/github/harrim91/url_shortener?branch=master)
+
 Life is way too short to type out entire URLs. No-one on the internet has ever
 come up with a sane way of shortening URLs, especially not bit.ly, goo.gl or
 anything similar. Therefore, we want you to build your very own URL shortener
