@@ -1,5 +1,5 @@
 class URLShortener < Sinatra::Base
   get '/' do
-    'Hello URLShortener!'
+    haml :index
   end
 end
