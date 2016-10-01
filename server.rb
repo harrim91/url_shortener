@@ -1,7 +1,9 @@
 ENV['RACK_ENV'] ||= 'development'
 
-require 'dotenv'
-Dotenv.load unless ENV['RACK_ENV'] == 'PRODUCTION'
+unless ENV['RACK_ENV'] == 'production'
+	require 'dotenv'
+	Dotenv.load
+end
 
 require 'sinatra/base'
 require 'sinatra/flash'
