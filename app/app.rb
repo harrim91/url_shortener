@@ -16,7 +16,7 @@ class URLShortener < Sinatra::Base
   end
 
   post '/short-url' do
-  	url = URL.first_or_create(url: params[:long_url])
+  	url = URL.first_or_create(url: format_url(params[:long_url]))
     if url.save
       session['short_url'] = url.id.to_s(36)
     else
@@ -33,6 +33,15 @@ class URLShortener < Sinatra::Base
       redirect url.url
     end
     redirect '/'
+  end
+
+  helpers do
+    def format_url url
+      url.strip!
+      url.prepend('http://') unless url.start_with? 'http'
+      url.chop! if url.end_with? '/'
+      return url
+    end
   end
 
 end
