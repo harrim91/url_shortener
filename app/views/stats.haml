@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %title URL Shortener
+  %body
+    %h1
+      %a{ :href => '/' } URL Shortener
+    -if @url
+      %h3= "#{@url.url} => #{request.base_url}/#{@short_url}"
+      %p= "Visits: #{@url.visits}"
+    -else
+      %h3 URL not found

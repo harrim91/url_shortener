@@ -8,8 +8,10 @@ gem 'dm-transactions'
 gem 'haml'
 gem 'rake'
 gem 'sinatra'
+gem 'sinatra-flash'
 
 group :development do
+	gem 'dotenv'
 	gem 'shotgun'
 end
 

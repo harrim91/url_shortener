@@ -2,8 +2,17 @@
 %html
   %head
     %title URL Shortener
+    %script{ type: "text/javascript", src: "https://code.jquery.com/jquery-2.1.4.min.js" }
+    %script{ type: "text/javascript", src: "/scripts/app.js" }
   %body
-    %h1= 'URL Shortener'
-    %form{ id: "form-url" }
-      %input{ type: "text", id: "field-url" }
-      %input{ type: "submit", id: "btn-submit-url", value: "Shorten URL" } 
+    %h1
+      %a{ :href => '/' } URL Shortener
+    %form{ id: "form-url", action: "short-url", method: "post" }
+      %input{ type: "text", id: "field-long-url", name: "long_url" }
+      %input{ type: "submit", id: "btn-submit-url", value: "Shorten URL" }
+    - if flash.now[:errors]
+      - flash.now[:errors].each do |error|
+        %p= error
+    - if @short_url
+      %input{ id: "field-short-url", value: "#{request.base_url}/#{@short_url}" }
+      %button{ id: "btn-copy-url" } Copy
