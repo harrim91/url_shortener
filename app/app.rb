@@ -10,15 +10,15 @@ class URLShortener < Sinatra::Base
   end
 
   get '/stats/:short_url' do
-    @url = URL.get(params[:short_url].to_i(36))
     @short_url = params[:short_url]
+    @url = URL.get(decode_url(params[:short_url]))
     haml :stats
   end
 
   post '/short-url' do
   	url = URL.first_or_create(url: format_url(params[:long_url]))
     if url.save
-      session['short_url'] = url.id.to_s(36)
+      session['short_url'] = encode_url(url.id)
     else
       flash.next[:errors] = url.errors.full_messages
     end
@@ -26,7 +26,7 @@ class URLShortener < Sinatra::Base
   end
 
   get '/:short_url' do
-  	url = URL.get(params[:short_url].to_i(36))
+  	url = URL.get(decode_url(params[:short_url]))
   	if url
       visits = url.visits + 1
       url.update(:visits => visits)
@@ -37,10 +37,19 @@ class URLShortener < Sinatra::Base
 
   helpers do
     def format_url url
+      url.downcase!
       url.strip!
       url.prepend('http://') unless url.start_with? 'http'
       url.chop! if url.end_with? '/'
       return url
+    end
+
+    def encode_url id
+      id.to_s(36)
+    end
+
+    def decode_url url
+      url.to_i(36)
     end
   end
 
